@@ -1,0 +1,21 @@
+# Database credentials
+database:
+  # antingen denna
+  file: "" 
+  # eller alla dessa (om file är blankt)
+  sql-user: "root"            #
+  sql-pass: "my-secret-pw"
+  sql-server: "127.0.0.1"
+  sql-database: "Salary"
+  sql-port: 3307
+
+redis:
+  server: "localhost:6379"
+
+sso:
+  clientId:  "StudentPortal"
+  clientSecret:  "EM4WKTSRUXVWG5RBTXC3VPOBTMF5Y3SL"
+  baseAddress:  "https://localhost:44375/"
+  backBaseAddress: "https://localhost:8080/"
+
+
