@@ -1,9 +1,8 @@
 package main
 
 import (
-	"net/http"
-
 	"math/rand"
+	"net/http"
 	"time"
 
 	"github.com/Pallinder/go-randomdata"
@@ -11,16 +10,24 @@ import (
 	"systementor.se/yagolangapi/data"
 )
 
-type PageView struct {
-	Title  string
-	Rubrik string
+type Person struct {
+	Name string
+	City string
 }
 
-var theRandom *rand.Rand
+var listofPeople = []Person{
+	{Name: "Mekasha", City: "Stockholm"},
+}
+
+func getPerson(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, listofPeople)
+}
 
 func start(c *gin.Context) {
 	c.HTML(http.StatusOK, "home.html", &PageView{Title: "test", Rubrik: "Hej Golang"})
 }
+
+var theRandom *rand.Rand
 
 // HTML
 // JSON
@@ -46,9 +53,17 @@ func addManyEmployees(c *gin.Context) {
 
 }
 
+type PageView struct {
+	Title  string
+	Rubrik string
+}
+
 var config Config
 
 func main() {
+	router := gin.Default()
+	router.GET("/api/mekasha", getPerson)
+	router.Run("localhost:8080")
 	theRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
 	readConfig(&config)
 
@@ -59,13 +74,12 @@ func main() {
 		config.Database.Password,
 		config.Database.Port)
 
-	router := gin.Default()
 	router.LoadHTMLGlob("templates/**")
 	router.GET("/", start)
+
 	router.GET("/api/employees", employeesJson)
 	router.GET("/api/addemployee", addEmployee)
 	router.GET("/api/addmanyemployees", addManyEmployees)
-	router.Run(":8080")
 
 	// e := data.Employee{
 	// 	Age:  1,
