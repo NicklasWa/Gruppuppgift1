@@ -20,8 +20,3 @@ func IsCool(emp Employee) bool {
 	}
 	return false
 }
-
-type Person struct {
-	Name string
-	City string
-}
