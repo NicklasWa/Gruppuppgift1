@@ -10,19 +10,6 @@ import (
 	"systementor.se/yagolangapi/data"
 )
 
-type Person struct {
-	Name string
-	City string
-}
-
-var listofPeople = []Person{
-	{Name: "Mekasha", City: "Stockholm"},
-}
-
-func getPerson(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, listofPeople)
-}
-
 func start(c *gin.Context) {
 	c.HTML(http.StatusOK, "home.html", &PageView{Title: "test", Rubrik: "Hej Golang"})
 }
@@ -31,6 +18,21 @@ var theRandom *rand.Rand
 
 // HTML
 // JSON
+
+func mekashaJson(c *gin.Context) {
+	var listofPeople = []data.Person{
+		{Name: "Mekasha", City: "Stockholm"},
+	}
+	c.IndentedJSON(http.StatusOK, listofPeople)
+}
+
+func nicklasJson(c *gin.Context) {
+	var nicklas data.Person
+	nicklas.Name = "Nicklas"
+	nicklas.City = "Falun"
+
+	c.JSON(http.StatusOK, nicklas)
+}
 
 func employeesJson(c *gin.Context) {
 	var employees []data.Employee
@@ -61,9 +63,7 @@ type PageView struct {
 var config Config
 
 func main() {
-	router := gin.Default()
-	router.GET("/api/mekasha", getPerson)
-	router.Run("localhost:8080")
+
 	theRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
 	readConfig(&config)
 
@@ -74,12 +74,15 @@ func main() {
 		config.Database.Password,
 		config.Database.Port)
 
+	router := gin.Default()
 	router.LoadHTMLGlob("templates/**")
 	router.GET("/", start)
-
+	router.GET("/api/nicklas", nicklasJson)
+	router.GET("/api/mekasha", mekashaJson)
 	router.GET("/api/employees", employeesJson)
 	router.GET("/api/addemployee", addEmployee)
 	router.GET("/api/addmanyemployees", addManyEmployees)
+	router.Run("localhost:8080")
 
 	// e := data.Employee{
 	// 	Age:  1,
