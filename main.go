@@ -25,6 +25,14 @@ func start(c *gin.Context) {
 // HTML
 // JSON
 
+func nicklasJson(c *gin.Context) {
+	var nicklas data.Person
+	nicklas.Name = "Nicklas"
+	nicklas.City = "Falun"
+
+	c.JSON(http.StatusOK, nicklas)
+}
+
 func employeesJson(c *gin.Context) {
 	var employees []data.Employee
 	data.DB.Find(&employees)
@@ -62,6 +70,7 @@ func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**")
 	router.GET("/", start)
+	router.GET("/api/nicklas", nicklasJson)
 	router.GET("/api/employees", employeesJson)
 	router.GET("/api/addemployee", addEmployee)
 	router.GET("/api/addmanyemployees", addManyEmployees)
