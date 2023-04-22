@@ -7,6 +7,7 @@ import (
 
 	"github.com/Pallinder/go-randomdata"
 	"github.com/gin-gonic/gin"
+	"systementor.se/yagolangapi/DBModels"
 	"systementor.se/yagolangapi/data"
 )
 
@@ -66,7 +67,7 @@ func main() {
 
 	theRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
 	readConfig(&config)
-
+	DBModels.Open_SQLite()
 	data.InitDatabase(config.Database.File,
 		config.Database.Server,
 		config.Database.Database,
