@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+var DB *gorm.DB // Publik variabel som håller en pekare till den skapade SQLite-databasen
 
 func Open_SQLite() {
 

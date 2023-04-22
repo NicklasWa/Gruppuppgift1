@@ -36,8 +36,8 @@ func nicklasJson(c *gin.Context) {
 }
 
 func teamsJson(c *gin.Context) {
-	var teams []DBModels.Team
-	DBModels.DB.Find(&teams)
+	var teams []DBModels.Team // En tom lista av team skapas
+	DBModels.DB.Find(&teams)  // Hämta data från databasen.
 
 	c.IndentedJSON(http.StatusOK, teams)
 }
