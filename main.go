@@ -35,6 +35,13 @@ func nicklasJson(c *gin.Context) {
 	c.JSON(http.StatusOK, nicklas)
 }
 
+func teamsJson(c *gin.Context) {
+	var teams []DBModels.Team
+	DBModels.DB.Find(&teams)
+
+	c.IndentedJSON(http.StatusOK, teams)
+}
+
 func employeesJson(c *gin.Context) {
 	var employees []data.Employee
 	data.DB.Find(&employees)
@@ -80,6 +87,7 @@ func main() {
 	router.GET("/", start)
 	router.GET("/api/nicklas", nicklasJson)
 	router.GET("/api/mekasha", mekashaJson)
+	router.GET("/api/teams", teamsJson)
 	router.GET("/api/employees", employeesJson)
 	router.GET("/api/addemployee", addEmployee)
 	router.GET("/api/addmanyemployees", addManyEmployees)
