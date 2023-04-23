@@ -19,6 +19,6 @@ version: 0.2
 phases:
   build:
     commands:
-      - docker build -t git.systementor.se/nicklas.wall/gruppuppgift1b .
+      - docker build -t git.systementor.se/nicklas.wall/gruppuppgift1c .
       - docker login -u nicklas.wall -p yacloud1 https://git.systementor.se
-      - docker push git.systementor.se/nicklas.wall/gruppuppgift1b
+      - docker push git.systementor.se/nicklas.wall/gruppuppgift1c
