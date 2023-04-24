@@ -10,7 +10,7 @@ COPY *.go ./
 COPY data/*.go ./data/
 COPY templates/* ./templates/
 
-RUN go build -o /applikationen
+RUN CGO_ENABLED=1 go build -o /applikationen
 
 EXPOSE 8080
 
