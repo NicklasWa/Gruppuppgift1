@@ -9,8 +9,10 @@ RUN go mod download
 COPY *.go ./
 COPY data/*.go ./data/
 COPY templates/* ./templates/
+COPY DBModels/* ./DBModels/
 
-RUN CGO_ENABLED=1 go build -o /applikationen
+
+RUN go build -o /applikationen
 
 EXPOSE 8080
 
